@@ -21,7 +21,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    label, button, input {
+    label, input {
       margin: 10px;
       border: none;
       padding: 10px;
@@ -33,15 +33,38 @@
       width: calc(100% - 20px);
     }
 
-    #backgroundButton {
-      background-color: #4CAF50;
+    #backgroundButton, #applyButton {
+      background-color: #800080; /* Purple color */
       color: white;
       cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+    #backgroundButton:hover, #applyButton:hover {
+      background-color: #600060; /* Darker shade on hover */
     }
 
     #output {
       margin: 20px;
       font-weight: bold;
+    }
+
+    #iframeContainer {
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -63,26 +86,32 @@
   </section>
 
   <section>
-    <h2>Link Opener</h2>
+    <h2>Link Viewer</h2>
     <label for="linkInput">Enter Link:</label>
     <input type="text" id="linkInput" placeholder="Enter URL">
-    <button id="applyButton" onclick="openLink()">Open Link in New Tab</button>
+    <button id="applyButton" onclick="openLink()">View Link</button>
 
     <div id="output"></div>
+    <div id="iframeContainer"></div>
   </section>
 
   <script>
     function openLink() {
       var link = document.getElementById('linkInput').value;
 
-      // Open a new tab with a blank page
-      var newTab = window.open('about:blank');
+      // Create a new iframe to display the linked content
+      var iframe = document.createElement('iframe');
+      iframe.src = link;
+      iframe.width = '100%';
+      iframe.height = '100%';
 
-      // Write the link content into the new tab using an iframe
-      newTab.document.write('<html><body><iframe src="' + link + '" width="100%" height="100%"></iframe></body></html>');
+      // Append the iframe to the container
+      var iframeContainer = document.getElementById('iframeContainer');
+      iframeContainer.innerHTML = '';
+      iframeContainer.appendChild(iframe);
 
       // Display the result
-      document.getElementById('output').innerHTML = 'Link opened in a new tab with about:blank page!';
+      document.getElementById('output').innerHTML = 'Link content displayed below:';
     }
   </script>
 
