@@ -16,47 +16,36 @@
 
     section {
       margin-bottom: 30px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    label, button {
-      margin-right: 10px;
-    }
-
-    #linkInput, #encryptInput {
-      width: 300px;
-      padding: 8px;
-    }
-
-    #applyButton, #encryptButton {
+    label, button, input {
+      margin: 10px;
+      border: none;
       padding: 10px;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    input {
+      width: calc(100% - 20px);
+    }
+
+    #backgroundButton {
+      background-color: #4CAF50;
+      color: white;
       cursor: pointer;
     }
 
-    #output, #encryptOutput {
-      margin-top: 20px;
+    #output {
+      margin: 20px;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
-
-  <section>
-    <h2>Link Changer</h2>
-    <label for="linkInput">Enter Link:</label>
-    <input type="text" id="linkInput" placeholder="Enter URL">
-    <button id="applyButton" onclick="changeLink()">Apply</button>
-
-    <div id="output"></div>
-  </section>
-
-  <section>
-    <h2>Link Encryptor</h2>
-    <label for="encryptInput">Enter Link:</label>
-    <input type="text" id="encryptInput" placeholder="Enter URL">
-    <button id="encryptButton" onclick="encryptLink()">Encrypt</button>
-
-    <div id="encryptOutput"></div>
-  </section>
 
   <section>
     <h2>Background Changer</h2>
@@ -73,25 +62,22 @@
     </script>
   </section>
 
+  <section>
+    <h2>Link Opener</h2>
+    <label for="linkInput">Enter Link:</label>
+    <input type="text" id="linkInput" placeholder="Enter URL">
+    <button id="applyButton" onclick="openLink()">Open Link in New Tab</button>
+
+    <div id="output"></div>
+  </section>
+
   <script>
-    function changeLink() {
+    function openLink() {
       var link = document.getElementById('linkInput').value;
-      window.open(link, '_blank');
-
-      // Change the appearance (modify as needed)
-      document.getElementById('linkInput').style.color = 'blue';
-      document.getElementById('linkInput').style.textDecoration = 'underline';
+      window.open('about:blank').document.write('<iframe src="' + link + '" width="100%" height="100%"></iframe>');
 
       // Display the result
-      document.getElementById('output').innerHTML = 'Link changed and opened in a new tab!';
-    }
-
-    function encryptLink() {
-      var originalLink = document.getElementById('encryptInput').value;
-      var encodedLink = btoa(originalLink);
-
-      // Display the result
-      document.getElementById('encryptOutput').innerHTML = 'Encrypted Link: ' + encodedLink;
+      document.getElementById('output').innerHTML = 'Link opened in a new tab with about:blank page!';
     }
   </script>
 
