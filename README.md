@@ -74,7 +74,12 @@
   <script>
     function openLink() {
       var link = document.getElementById('linkInput').value;
-      window.open('about:blank').document.write('<iframe src="' + link + '" width="100%" height="100%"></iframe>');
+
+      // Open a new tab with a blank page
+      var newTab = window.open('about:blank');
+
+      // Write the link content into the new tab using an iframe
+      newTab.document.write('<html><body><iframe src="' + link + '" width="100%" height="100%"></iframe></body></html>');
 
       // Display the result
       document.getElementById('output').innerHTML = 'Link opened in a new tab with about:blank page!';
